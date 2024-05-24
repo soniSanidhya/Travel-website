@@ -1,16 +1,25 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Home.css";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
 import Card from "./Card";
-
+import PackageContext from "../../context/PackageContext";
 gsap.registerPlugin(ScrollTrigger);
 const Home = () => {
   const [location, setLocation] = useState("");
   const [price, setprice] = useState("100");
   const [arr, setarr] = useState([]);
   const cardWrapper = useRef();
+  const packageref = useRef();
+  const container = useRef();
+
+  const {packages,setPackage } = useContext(PackageContext);
+
+  useEffect(()=>{
+    setPackage(packageref.current);
+  })
+  console.log(packages);
   const details = [
     {
       image:
@@ -135,71 +144,67 @@ const Home = () => {
     },
   ];
 
-  const container = useRef();
+  // useGSAP(()=>{
+  //   gsap.to(".cards", {
+  //     rotation : 90,
+  //     duration: 4,
+  //     // stagger : {
+  //     //   grid : 'auto',
+  //     //   axis : 'x',
+  //     //   amount : 1,
+  //     // }
+  //     scrollTrigger : {
+  //       trigger : '#cardContainer',
+  //     //   start : 'top top',
+  //       markers : true,
+  //     //   scrub : 5
 
-// useGSAP(()=>{
-//   gsap.to(".cards", { 
-//     rotation : 90,
-//     duration: 4, 
-//     // stagger : {
-//     //   grid : 'auto',
-//     //   axis : 'x',
-//     //   amount : 1,
-//     // }
-//     scrollTrigger : {
-//       trigger : '#cardContainer',
-//     //   start : 'top top',
-//       markers : true,
-//     //   scrub : 5
+  //     },
+  //     // scrollTrigger : '#cardContainer'
+  //   });
+  // })
 
-//     },
-//     // scrollTrigger : '#cardContainer'
-//   });
-// })
+  // useEffect(()=>{
+  //   gsap.from('.cards' , {
+  //     y : 30,
+  //     opacity : 50,
+  //     duration : 1,
+  //     scrollTrigger : {
+  //       trigger : '.cards',
+  //       start : 'top bottom-=50',
+  //       end : "bottom top",
+  //       markers : 'true',
+  //       // scrub : 5
+  //     },
+  //     stagger : {
+  //       grid : 'auto',
+  //       axis : 'x',
+  //       from : 'start'
+  //     }
+  //   })
+  // } , [arr])
 
-// useEffect(()=>{
-//   gsap.from('.cards' , {
-//     y : 30,
-//     opacity : 50,
-//     duration : 1,
-//     scrollTrigger : {
-//       trigger : '.cards',
-//       start : 'top bottom-=50',
-//       end : "bottom top",
-//       markers : 'true',
-//       // scrub : 5
-//     },
-//     stagger : {
-//       grid : 'auto',
-//       axis : 'x',
-//       from : 'start'
-//     }
-//   })
-// } , [arr])
-    
-useEffect(() => {
-  gsap.from(".card", {
-    y: 30,
-    // rotate : 45,
-    // opacity: 0,
-    duration: 1,
-    scrollTrigger: {
-      trigger: cardWrapper.current,
-      start: "top bottom-=50",
-      end: "bottom top",
-      // markers: true,
-      // scrub: 2,
-    },
-    stagger: {
-      grid: "auto",
-      axis: "x",
-      from: "start",
-    },
-  });
-  ScrollTrigger.refresh();
-}, [arr]); // Depend on arr
-
-
+  useEffect(() => {
+    gsap.from(".card", {
+      y: 30,
+      // rotate : 45,
+      // opacity: 0,
+      duration: 1,
+      scrollTrigger: {
+        trigger: cardWrapper.current,
+        start: "top bottom-=50",
+        end: "bottom top",
+        // markers: true,
+        // scrub: 2,
+      },
+      stagger: {
+        grid: "auto",
+        axis: "x",
+        from: "start",
+      },
+    });
+    ScrollTrigger.refresh();
+  }, [arr]); // Depend on arr
 
   const set = () => {
     const array = details.filter((detail) => {
@@ -273,8 +278,8 @@ useEffect(() => {
             </div>
             <div className="md:p-4 max-md:px-4">
               <div className="flex mb-2  text-gray-600  justify-between">
-              <div className=" ">Max price:</div>
-              <div className="text-2xl font-semibold">${price}</div>
+                <div className=" ">Max price:</div>
+                <div className="text-2xl font-semibold">${price}</div>
               </div>
               <div className="  bg-gray-200  flex justify-center min-h-9  items-center h-2/5 rounded-3xl  ">
                 <input
@@ -292,15 +297,19 @@ useEffect(() => {
         </div>
       </div>
 
-      <div className="w-full h-auto flex bg-[#f3f3f3] py-10 justify-center items-center">
+      <div
+        id="Packkage"
+        ref={packageref}
+        className="w-full h-auto flex bg-[#f3f3f3] py-10 justify-center items-center"
+      >
         <div className=" w-4/5 h-4/5">
-          <h1 id="most" className="text-4xl text-gray-500 font-bold my-12 font-sans">
+          <h1
+            id="most"
+            className="text-4xl text-gray-500 font-bold my-12 font-sans"
+          >
             Most visited destinations
           </h1>
-          <div
-            ref={cardWrapper}
-            className="flex justify-evenly flex-wrap"
-          >
+          <div ref={cardWrapper} className="flex justify-evenly flex-wrap">
             <div className="card hidden"></div>
             {arr.length !== 0 ? (
               arr.map((element, index) => (
@@ -309,7 +318,9 @@ useEffect(() => {
                 </div>
               ))
             ) : (
-              <div className="text-5xl w-full h-screen text-center text-gray-500">No results found</div>
+              <div className="text-5xl w-full h-screen text-center text-gray-500">
+                No results found
+              </div>
             )}
           </div>
         </div>
