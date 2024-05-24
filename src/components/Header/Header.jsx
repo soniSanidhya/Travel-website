@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import PackageContext from "../../context/PackageContext";
 import { NavLink, useLocation } from "react-router-dom";
-import { NodeVar } from "three/examples/jsm/nodes/Nodes.js";
+
 
 function Header(props) {
   const { packages } = useContext(PackageContext);
