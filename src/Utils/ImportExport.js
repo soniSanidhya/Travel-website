@@ -5,4 +5,5 @@ export {default as About} from "../components/About/About"
 export {default as Header} from "../components/Header/Header";
 export {default as Footer} from "../components/Footer/Footer";
 export {default as Shop} from "../components/shop/Shop"
+export {default as Product} from '../components/shop/Product.jsx'
 

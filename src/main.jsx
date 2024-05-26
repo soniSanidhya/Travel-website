@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 
-import { App, Home , News , About, Shop } from './Utils/ImportExport'
+import { App, Home , News , About, Shop, Product } from './Utils/ImportExport'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -13,6 +13,7 @@ const router = createBrowserRouter(
       <Route path='/News' element={<News/>}></Route>
       <Route path='/About' element={<About/>}></Route>
       <Route path='/Shop' element={<Shop/>}></Route>
+      <Route path='/Product' element={<Product/>}></Route>
     </Route>
   )
 )
