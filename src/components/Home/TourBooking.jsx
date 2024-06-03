@@ -31,7 +31,7 @@ const TourBooking = ( {handleBooking , handleConfirm , details } ) => {
       headers : {
         "Content-Type" : "application/json",
       }
-    }).then((res) =>{console.log(res);}).catch((e)=>{console.log(e);});
+    }).then((res) =>{}).catch((e)=>{console.log(e);});
     
 }
   
@@ -45,9 +45,9 @@ const TourBooking = ( {handleBooking , handleConfirm , details } ) => {
     e.preventDefault();
     handleConfirm();
 
-    console.log(formData);
+    // console.log(formData);
     sendData(packageDetails);
-    console.log("details",packageDetails);
+    // console.log("details",packageDetails);
     // Add form submission logic here
   };
 

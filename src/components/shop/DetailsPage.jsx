@@ -27,7 +27,7 @@ const DetailsPage = ({handleBack , handleBuy , handleForm }) => {
     // Handle form submission
     handleBuy(true);
     handleForm(formData);
-    console.log("Form data submitted:", formData);
+    // console.log("Form data submitted:", formData);
   };
 
   return (

@@ -67,7 +67,7 @@ const Buy = ({handleBuy , userData , products , handlePlaced } ) => {
           headers : {
             "Content-Type" : "application/json",
           }
-        }).then((res) =>{console.log(res);}).catch((e)=>{console.log(e);});
+        }).then((res) =>{}).catch((e)=>{console.log(e);});
         
     }
 
@@ -81,8 +81,8 @@ const Buy = ({handleBuy , userData , products , handlePlaced } ) => {
     }) )
   },[])
         useEffect(()=>{
-            console.log(order);
-            console.log(userData);
+            // console.log(order);
+            // console.log(userData);
         },[order])
   return ( order.products && 
     <div className="bg-gray-100 rounded-xl w-[60%] h-[95%]">

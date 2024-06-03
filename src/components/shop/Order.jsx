@@ -20,8 +20,8 @@ function Order({handleShow , productData}) {
       const handlePlaced = data => {
         setplaced(data);
       }
-      if(formData){console.log("data from details in order",formData);}
-      if(productData){console.log("product data" , productData);}
+      // if(formData){console.log("data from details in order",formData);}
+      // if(productData){console.log("product data" , productData);}
   return (show && 
     <div className="w-full flex justify-center items-center h-screen fixed top-0 backdrop-brightness-50 backdrop-blur-sm">
       {showBuy ? placed ? <Congratulations handleBack={handleShow} /> : <Buy handleBuy={handleBuy} userData={formData} products={productData} handlePlaced={handlePlaced}  /> : 

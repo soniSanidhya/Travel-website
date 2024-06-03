@@ -29,11 +29,11 @@ function Product() {
   useEffect(()=>{
     if(products){
       let pro = products[category];
-      console.log(pro);
+      // console.log(pro);
       pro = pro.filter(pr => pr.productname === productname);
-      console.log(pro);
+      // console.log(pro);
       setProdute(pro[0]);
-      console.log(product);
+      // console.log(product);
     }
   })
   if(product){
@@ -192,7 +192,7 @@ function Product() {
               <p className="font-semibold">Features</p>
               <ul>
                 {product.features.map((feature, index) => {
-                  return <li className="pl-4">{feature}</li>;
+                  return <li key={index} className="pl-4">{feature}</li>;
                 })}
               </ul>
               <p className="font-semibold">Compartments</p>
@@ -200,7 +200,7 @@ function Product() {
                 {product.compartments.map((comp, i) => {
                   // console.log("hmmm", comp);
                   return (
-                    <div className="ml-4">
+                    <div key={i} className="ml-4">
                       <p>
                         <span className="font-semibold">{comp.type}: </span>{" "}
                         {comp.description}
