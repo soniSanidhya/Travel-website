@@ -1,14 +1,20 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SideBar from "./SideBar";
 import "./font.css";
 import ShopCard from "./ShopCard.jsx";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+// import { json } from "body-parser";
+
 
 
 function Shop(props) {
     // const [category , setCategory] = useState();
     const categoryarr = useRef([]);
+    const navigate = useNavigate();
+    const [products , setProducts] = useState([]);
  
-  const products = {
+  const producs = {
     travelBackpack: [
       {
         image: "https://m.media-amazon.com/images/I/61jI4jxdGmL._SX679_.jpg",
@@ -1049,6 +1055,22 @@ function Shop(props) {
     ]
   };
 
+  useEffect(()=>{
+    (async()=>{
+      await axios.get("http://localhost:3000/products")
+      .then((response)=>{setProducts(response.data)})
+      .catch((err)=>{console.log(err);})
+    })();
+  },[]);
+
+  const handleClick = (product , key)=>{
+    console.log("hello clicked the card" , product);
+    const params = new URLSearchParams();
+    params.append('category' , key);
+    params.append('productname' , product.productname);
+    navigate(`/Product?${params.toString()}`);
+  }
+
   return (
     <div className="flex w-full ">
       <SideBar category = {categoryarr.current} />
@@ -1059,7 +1081,7 @@ function Shop(props) {
         <div>
           <div>
             {Object.keys(products).map((key,index) => {
-              console.log(categoryarr.current);
+              // console.log(categoryarr.current);
               
               return (
                 <div ref={(element) => categoryarr.current[index] = element} key={key}>
@@ -1070,7 +1092,7 @@ function Shop(props) {
                   <div className="flex flex-col gap-2">
                     {products[key].map((product) => {
                       return (
-                        <div key={product.name}>
+                        <div onClick={()=>{handleClick(product , key)}} className="border shadow-lg w-11/12 hover:scale-105 hover:shadow-2xl transition-transform rounded-xl" key={product.name}>
                           <ShopCard product={product} />
                         </div>
                       );
@@ -1082,6 +1104,7 @@ function Shop(props) {
           </div>
         </div>
       </div>
+      
     </div>
   );
 }

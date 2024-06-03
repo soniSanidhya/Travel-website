@@ -5,21 +5,23 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
 import Card from "./Card";
 import PackageContext from "../../context/PackageContext";
+import TourBooking from "./TourBooking";
 gsap.registerPlugin(ScrollTrigger);
 const Home = () => {
   const [location, setLocation] = useState("");
   const [price, setprice] = useState("100");
+  const [date, setdate] = useState();
   const [arr, setarr] = useState([]);
   const cardWrapper = useRef();
   const packageref = useRef();
   const container = useRef();
 
-  const {packages,setPackage } = useContext(PackageContext);
+  const { packages, setPackage } = useContext(PackageContext);
 
-  useEffect(()=>{
+  useEffect(() => {
     setPackage(packageref.current);
-  })
-  console.log(packages);
+  });
+  // console.log(packages);
   const details = [
     {
       image:
@@ -184,27 +186,27 @@ const Home = () => {
   //   })
   // } , [arr])
 
-  useEffect(() => {
-    gsap.from(".card", {
-      y: 30,
-      // rotate : 45,
-      // opacity: 0,
-      duration: 1,
-      scrollTrigger: {
-        trigger: cardWrapper.current,
-        start: "top bottom-=50",
-        end: "bottom top",
-        // markers: true,
-        // scrub: 2,
-      },
-      stagger: {
-        grid: "auto",
-        axis: "x",
-        from: "start",
-      },
-    });
-    ScrollTrigger.refresh();
-  }, [arr]); // Depend on arr
+  // useEffect(() => {
+  //   gsap.from(".card", {
+  //     y: 30,
+  //     // rotate : 45,
+  //     // opacity: 0,
+  //     duration: 1,
+  //     scrollTrigger: {
+  //       trigger: cardWrapper.current,
+  //       start: "top bottom-=50",
+  //       end: "bottom top",
+  //       // markers: true,
+  //       // scrub: 2,
+  //     },
+  //     stagger: {
+  //       grid: "auto",
+  //       axis: "x",
+  //       from: "start",
+  //     },
+  //   });
+  //   ScrollTrigger.refresh();
+  // }, [arr]); // Depend on arr
 
   const set = () => {
     const array = details.filter((detail) => {
@@ -269,6 +271,10 @@ const Home = () => {
               <div className="mb-2 h-8 text-gray-600">Select your date:</div>
               <div className="bg-gray-200 min-h-9  flex justify-center px-2  items-center h-2/5 rounded-3xl">
                 <input
+                  onChange={(e)=>{
+                    setdate(e.target.value)
+                    console.log(date);
+                  }}
                   className=" w-11/12 bg-transparent outline-none"
                   type="date"
                   name=""
@@ -295,6 +301,38 @@ const Home = () => {
             </div>
           </div>
         </div>
+        { arr.length ?  <div className=" w-auto h-32 absolute bottom-10 cursor-pointer">
+          <svg   onClick={()=>{
+                packageref.current.scrollIntoView({ behavior: "smooth" });
+                console.log(packageref);
+              }}
+            xmlns="http://www.w3.org/2000/svg"
+            width="200px"
+            height="200px"
+            viewBox="0 0 24.00 24.00"
+            fill="none"
+            stroke="#a7d2db"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+
+            <g id="SVGRepo_iconCarrier">
+              {" "}
+              <path
+                d="M19 9L14 14.1599C13.7429 14.4323 13.4329 14.6493 13.089 14.7976C12.7451 14.9459 12.3745 15.0225 12 15.0225C11.6255 15.0225 11.2549 14.9459 10.9109 14.7976C10.567 14.6493 10.2571 14.4323 10 14.1599L5 9"
+                stroke="#a7d2dbf"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />{" "}
+            </g>
+          </svg>
+        </div> : <></>}
       </div>
 
       <div
@@ -313,8 +351,8 @@ const Home = () => {
             <div className="card hidden"></div>
             {arr.length !== 0 ? (
               arr.map((element, index) => (
-                <div className="my-4 card" key={index}>
-                  <Card details={element} />
+                <div className="my-4 card shadow-lg  rounded-xl" key={index}>
+                  <Card details={element} date={date}  />
                 </div>
               ))
             ) : (
@@ -325,6 +363,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      
     </>
   );
 };

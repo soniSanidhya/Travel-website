@@ -1,8 +1,8 @@
 import React from "react";
 
 function SideBar({category}) {
-    console.log('hahahha');
-    console.log(category);
+    // console.log('hahahha');
+    // console.log(category);
   return (
     <div className="w-80  p-4  bg-slate-50">
       <h2 className="text-1xl font-bold leading-8">Shop by Category</h2>

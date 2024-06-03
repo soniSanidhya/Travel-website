@@ -43,7 +43,7 @@ function Header(props) {
               <NavLink to={"/News"}>News</NavLink>
             </span>
             <span>
-              <NavLink to={"/"}>Contact</NavLink>
+              <NavLink to={"/Bookings"}>Bookings</NavLink>
             </span>
           </div>
           <div>

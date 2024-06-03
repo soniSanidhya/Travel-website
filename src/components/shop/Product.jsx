@@ -1,99 +1,95 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Rating from "./Rating";
 import "./font.css";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+import Buy from "./Buy.jsx";
+import DetailsPage from "./DetailsPage.jsx";
+import Order from "./Order.jsx";
+import Congratulations from "./Congratulations.jsx";
+
 function Product() {
-  const product = {
-    image: "https://m.media-amazon.com/images/I/61jI4jxdGmL._SX679_.jpg",
-    productname: "Urban Jungle Venture Workpack",
-    description:
-      "23 Liters Water Resistant, L-Open, Premium Polyester Laptop Backpack",
-    popular: "50+ bought in past month",
-    delivery: "FREE Delivery",
-    price: "₹4,799",
-    brand: "Urban Jungle",
-    color: "Black",
-    dimensions: "45 x 30 x 15 cm",
-    weight: "900 grams",
-    material: "Premium Polyester",
-    capacity: "23 Liters",
-    water_resistant: true,
-    compartments: [
-      {
-        type: "Main",
-        description: "Spacious main compartment for books, clothes, and more.",
-      },
-      {
-        type: "Laptop",
-        description: "Padded laptop compartment fits up to 15.6 inch laptops.",
-      },
-      {
-        type: "Front Pocket",
-        description: "Quick access front pocket for small essentials.",
-      },
-      {
-        type: "Side Pockets",
-        description: "Two side pockets for water bottles or umbrellas.",
-      },
-    ],
-    features: [
-      "Ergonomic shoulder straps with padding",
-      "Breathable back panel",
-      "Durable zippers",
-      "Reflective strips for safety",
-      "L-Open design for easy packing and unpacking",
-    ],
-    warranty: "1 year manufacturer warranty",
-    customer_reviews: {
-      average_rating: 4.5,
-      total_reviews: 120,
-    },
-  };
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const productname = params.get("productname");
+  const category = params.get("category");
+  const [products , setProducts] = useState();
+  const [product , setProdute] = useState();
+  const [show , setShow] = useState(false);
+  const [quantity , setQuantity] = useState(1);
+  const handleShow = (data) =>{
+    setShow(data);
+  }
+
+  useEffect(() => {
+  axios.get("http://localhost:3000/products")
+        .then(res => setProducts(res.data) )
+        .catch(err => console.log(err));
+  },[]);
+  useEffect(()=>{
+    if(products){
+      let pro = products[category];
+      console.log(pro);
+      pro = pro.filter(pr => pr.productname === productname);
+      console.log(pro);
+      setProdute(pro[0]);
+      console.log(product);
+    }
+  })
+  if(product){
   return (
     <div className=" w-full ">
       <div className=" flex w-[80%] mx-auto my-16">
-        <div className="w-[50%] ">
-          <img
-            className=" w-[32em] h-[24em] object-scale-down"
-            src={product.image}
+        <div className="w-[50%] h-auto">
+          <div  className="w-full h-[24em] p-4 hover:scale-150 transition-transform hover:shadow-xl rounded-2xl bg-white   hover:border">
+            <img 
+            className="w-full h-full object-scale-down "
+            src={ product.image}
             alt=""
           />
+          </div>
           <div className="p-4 border border-gray-600 rounded-lg h-52">
-          <section className="text-2xl font-semibold">{product.price}</section>
-          <section className="text-[0.7em] text-blue-500">
-            {product.delivery}
-          </section>
-          <section className="text-green-600 font-semibold">In stock</section>
-          <section className="">
-            <label htmlFor="qua">Quantity </label>
-            <select
-              className=" border border-gray-600 rounded-md"
-              name=""
-              id="qua"
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-            <hr className="my-4 border-gray-400" />
+            <section className="text-2xl font-semibold">
+              {product.price}
+            </section>
+            <section className="text-[0.7em] text-blue-500">
+              {product.delivery}
+            </section>
+            <section className="text-green-600 font-semibold">In stock</section>
+            <section className="">
+              <label htmlFor="qua">Quantity </label>
+              <select
+                onChange={(e)=>{setQuantity(e.target.value)}}
+                className=" border border-gray-600 rounded-md"
+                name=""
+                id="qua"
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <hr className="my-4 border-gray-400" />
 
-            <div className=" w-full flex justify-center ">
-                <button className="py-2 text-sm rounded-full w-[70%] bg-blue-400">
-                Buy Now
+              <div className=" w-full flex justify-center ">
+                <button
+                  onClick={()=>{setShow(true)}}
+                className="py-2 text-sm rounded-full w-[70%] bg-blue-400">
+                  Buy Now
                 </button>
-            </div>
-          </section>
+              </div>
+            </section>
+          </div>
         </div>
-        </div>
-        
-        <div className="w-  py-4 px-8 ">
+
+        <div className=" py-4 px-8 ">
           <p className=" text-xl leading-6  font-semibold ">
             {product.productname}
             {product.description}
@@ -202,7 +198,7 @@ function Product() {
               <p className="font-semibold">Compartments</p>
               <div>
                 {product.compartments.map((comp, i) => {
-                  console.log("hmmm", comp);
+                  // console.log("hmmm", comp);
                   return (
                     <div className="ml-4">
                       <p>
@@ -216,10 +212,11 @@ function Product() {
             </div>
           </section>
         </div>
-        
       </div>
+      {show && <Order handleShow={handleShow} productData={{productname : product.productname ,price : product.price ,quantity :  quantity , image : product.image}} />}
+                
     </div>
-  );
+  );}
 }
 
 export default Product;

@@ -70,10 +70,10 @@ function ShopCard({ product }) {
             </div>
         </div>
     */
-    <div className=" flex w-11/12  border border-gray-200 ">
+    <div className=" flex  rounded-l-xl  border border-gray-200 ">
       <div className="">
         <img
-          className="w-40 h-40 object-scale-down object-center  "
+          className="w-40 h-40 object-scale-down object-center rounded-l-xl "
           src={product.image}
           alt=""
         />
