@@ -9,7 +9,7 @@ const MyBookings = () => {
 
   const fetchData = useCallback(() => {
     axios
-      .get("http://localhost:3000/orders")
+      .get("/api/orders")
       .then((res) => {
         setCart(res.data);
         // console.log(cart);
@@ -18,7 +18,7 @@ const MyBookings = () => {
         console.log(e);
       });
     axios
-      .get("http://localhost:3000/packages")
+      .get("/api/packages")
       .then((res) => {
         setpackages(res.data);
         // console.log(packages);
@@ -30,7 +30,7 @@ const MyBookings = () => {
 
   const deleteData = (id, location) => {
     axios
-      .delete(`http://localhost:3000/${location}/${id}`)
+      .delete(`api/${location}/${id}`)
       .then((res) => {
         fetchData();
         // console.log(res);

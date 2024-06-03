@@ -8,14 +8,24 @@ import { App, Home , News , About, Shop, Product  , Bookings} from './Utils/Impo
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<App/>}>
-      <Route path='' element={<Home/>}></Route>
-      <Route path='/News' element={<News/>}></Route>
-      <Route path='/About' element={<About/>}></Route>
-      <Route path='/Shop' element={<Shop/>}></Route>
-      <Route path='/Product' element={<Product/>}></Route>
-      <Route path='/Bookings' element={<Bookings/>}></Route>
-    </Route>
+    // <Route path='/' element={<App/>}>
+    //   <Route path='' element={<Home/>}></Route>
+    //   <Route path='/News' element={<News/>}></Route>
+    //   <Route path='/About' element={<About/>}></Route>
+    //   <Route path='/Shop' element={<Shop/>}></Route>
+    //   <Route path='/Product' element={<Product/>}></Route>
+    //   <Route path='/Bookings' element={<Bookings/>}></Route>
+    // </Route>
+    
+      <Route path='/Travel-website' element={<App />}>
+        <Route index element={<Home />} />
+        <Route path='News' element={<News />} />
+        <Route path='About' element={<About />} />
+        <Route path='Shop' element={<Shop />} />
+        <Route path='Product' element={<Product />} />
+        <Route path='Bookings' element={<Bookings />} />
+      </Route>
+    
   )
 )
 

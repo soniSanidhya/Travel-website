@@ -26,7 +26,7 @@ function Header(props) {
         <div className="flex items-center">
           <div className="flex cursor-pointer  px-4 gap-4 text-gray-600 ">
             <span>
-              <NavLink to={""}>Home</NavLink>
+              <NavLink to={"/Travel-website"}>Home</NavLink>
             </span>
             <span>
               <NavLink onClick={()=>{
@@ -34,16 +34,16 @@ function Header(props) {
               }} to={""}>Packages</NavLink>
             </span>
             <span>
-              <NavLink to={"/Shop"}>Shop</NavLink>
+              <NavLink to={"/Travel-website/Shop"}>Shop</NavLink>
             </span>
             <span>
-              <NavLink to={"/About"}>About</NavLink>
+              <NavLink to={"/Travel-website/About"}>About</NavLink>
             </span>
             <span>
-              <NavLink to={"/News"}>News</NavLink>
+              <NavLink to={"/Travel-website/News"}>News</NavLink>
             </span>
             <span>
-              <NavLink to={"/Bookings"}>Bookings</NavLink>
+              <NavLink to={"/Travel-website/Bookings"}>Bookings</NavLink>
             </span>
           </div>
           <div>

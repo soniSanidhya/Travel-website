@@ -18,7 +18,7 @@ function Shop(props) {
 
   useEffect(()=>{
     (async()=>{
-      await axios.get("http://localhost:3000/products")
+      await axios.get("/api/products")
       .then((response)=>{setProducts(response.data)})
       .catch((err)=>{console.log(err);})
     })();
@@ -32,7 +32,7 @@ function Shop(props) {
     navigate(`/Product?${params.toString()}`);
   }
 
-  return (
+  if(products){return (
     <div className="flex w-full ">
       <SideBar category = {categoryarr.current} />
       <div className="w-full  bg-zinc-50 p-4">
@@ -68,6 +68,6 @@ function Shop(props) {
       
     </div>
   );
-}
+}}
 
 export default Shop;

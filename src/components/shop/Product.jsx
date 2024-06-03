@@ -22,7 +22,7 @@ function Product() {
   }
 
   useEffect(() => {
-  axios.get("http://localhost:3000/products")
+  axios.get("/api/products")
         .then(res => setProducts(res.data) )
         .catch(err => console.log(err));
   },[]);
