@@ -29,7 +29,7 @@ function Shop(props) {
     const params = new URLSearchParams();
     params.append('category' , key);
     params.append('productname' , product.productname);
-    navigate(`/Product?${params.toString()}`);
+    navigate(`/Travel-website/Product?${params.toString()}`);
   }
 
   if(products){return (
